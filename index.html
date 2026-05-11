@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ZYRAFORGE™ — Forging Ideas Into Digital Empires</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#06060a;
+  --bg2:#0d0d14;
+  --surface:#10101a;
+  --surface2:#16161f;
+  --cyan:#00e5ff;
+  --cyan2:#00b8d4;
+  --cyan-dim:rgba(0,229,255,0.08);
+  --cyan-glow:rgba(0,229,255,0.25);
+  --gold:#ffd166;
+  --text:#eaeaf2;
+  --muted:#5a5a72;
+  --border:rgba(0,229,255,0.12);
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ── CUSTOM CURSOR ── */
+.cursor{
+  width:10px;height:10px;
+  background:var(--cyan);
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  z-index:9999;
+  transition:transform 0.1s;
+  mix-blend-mode:screen;
+}
+.cursor-ring{
+  width:36px;height:36px;
+  border:1px solid rgba(0,229,255,0.4);
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  z-index:9998;
+  transition:all 0.12s ease;
+}
+
+/* ── GRID BACKGROUND ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+  z-index:0;
+}
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(0,229,255,0.07) 0%,transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 48px;
+  backdrop-filter:blur(20px);
+  background:rgba(6,6,10,0.7);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'Syne',sans-serif;
+  font-weight:800;
+  font-size:1.2rem;
+  letter-spacing:0.18em;
+  color:var(--cyan);
+  text-decoration:none;
+  display:flex;align-items:center;gap:10px;
+}
+.nav-logo .tm{font-size:0.6rem;vertical-align:super;color:var(--muted)}
+.nav-links{
+  display:flex;align-items:center;gap:32px;
+  list-style:none;
+}
+.nav-links a{
+  font-size:0.8rem;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+  text-decoration:none;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--cyan)}
+.nav-cta{
+  padding:9px 22px;
+  border:1px solid var(--cyan);
+  border-radius:6px;
+  font-size:0.78rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--cyan);
+  text-decoration:none;
+  transition:all 0.25s;
+  background:transparent;
+}
+.nav-cta:hover{
+  background:var(--cyan);
+  color:var(--bg);
+  box-shadow:0 0 24px var(--cyan-glow);
+}
+
+/* ── HERO ── */
+.hero{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:120px 24px 80px;
+  overflow:hidden;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 18px;
+  border:1px solid var(--border);
+  border-radius:100px;
+  font-size:0.72rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--cyan);
+  background:var(--cyan-dim);
+  margin-bottom:32px;
+  animation:fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) both;
+}
+.badge-dot{
+  width:6px;height:6px;
+  background:var(--cyan);
+  border-radius:50%;
+  animation:blink 2s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+
+.hero-eyebrow{
+  font-size:0.75rem;
+  letter-spacing:0.4em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:16px;
+  animation:fadeUp 0.8s 0.05s cubic-bezier(0.16,1,0.3,1) both;
+}
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3.5rem,12vw,9rem);
+  line-height:0.92;
+  letter-spacing:0.04em;
+  margin-bottom:8px;
+  animation:fadeUp 0.9s 0.1s cubic-bezier(0.16,1,0.3,1) both;
+}
+.hero-title .line1{
+  display:block;
+  background:linear-gradient(90deg,#fff 0%,#ccc 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-title .line2{
+  display:block;
+  background:linear-gradient(90deg,var(--cyan) 0%,var(--cyan2) 60%,#007c94 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 40px rgba(0,229,255,0.35));
+}
+.hero-tagline{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(0.85rem,2.5vw,1.1rem);
+  color:#8080a0;
+  letter-spacing:0.08em;
+  margin-bottom:48px;
+  animation:fadeUp 0.9s 0.18s cubic-bezier(0.16,1,0.3,1) both;
+}
+.hero-tagline span{color:var(--gold)}
+
+.hero-actions{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center;
+  animation:fadeUp 0.9s 0.26s cubic-bezier(0.16,1,0.3,1) both;
+}
+.btn-primary{
+  padding:14px 36px;
+  background:var(--cyan);
+  color:var(--bg);
+  border-radius:8px;
+  font-family:'Syne',sans-serif;
+  font-size:0.85rem;
+  font-weight:700;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:all 0.25s;
+  box-shadow:0 0 0 rgba(0,229,255,0);
+}
+.btn-primary:hover{
+  box-shadow:0 0 40px var(--cyan-glow),0 0 80px rgba(0,229,255,0.1);
+  transform:translateY(-2px);
+}
+.btn-ghost{
+  padding:14px 32px;
+  border:1px solid rgba(255,255,255,0.15);
+  color:#aaa;
+  border-radius:8px;
+  font-size:0.83rem;
+  letter-spacing:0.08em;
+  text-decoration:none;
+  transition:all 0.25s;
+}
+.btn-ghost:hover{border-color:rgba(255,255,255,0.4);color:#fff}
+
+/* Floating orbs */
+.orb{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(80px);
+  pointer-events:none;
+}
+.orb1{width:600px;height:600px;background:radial-gradient(circle,rgba(0,229,255,0.06),transparent 70%);top:-200px;left:50%;transform:translateX(-50%)}
+.orb2{width:400px;height:400px;background:radial-gradient(circle,rgba(255,209,102,0.05),transparent 70%);bottom:0;right:-100px}
+
+/* scroll hint */
+.scroll-hint{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:var(--muted);
+  font-size:0.65rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  animation:fadeUp 1s 0.6s both;
+}
+.scroll-line{
+  width:1px;height:48px;
+  background:linear-gradient(to bottom,var(--muted),transparent);
+  animation:scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse{0%,100%{opacity:0.3;height:30px}50%{opacity:1;height:50px}}
+
+/* ── MARQUEE ── */
+.marquee-wrap{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  background:var(--surface);
+  padding:18px 0;
+  overflow:hidden;
+  mask:linear-gradient(90deg,transparent,black 10%,black 90%,transparent);
+}
+.marquee-track{
+  display:flex;gap:0;
+  animation:marquee 20s linear infinite;
+  white-space:nowrap;
+}
+.marquee-item{
+  display:inline-flex;align-items:center;gap:16px;
+  padding:0 32px;
+  font-family:'Syne',sans-serif;
+  font-size:0.72rem;
+  letter-spacing:0.25em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.marquee-item .dot{
+  width:4px;height:4px;
+  background:var(--cyan);
+  border-radius:50%;
+}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── SECTIONS ── */
+section{position:relative;z-index:1}
+.section-inner{max-width:1100px;margin:0 auto;padding:100px 24px}
+.section-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:0.65rem;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:var(--cyan);
+  margin-bottom:20px;
+}
+.section-tag::before{content:'';width:24px;height:1px;background:var(--cyan)}
+.section-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2rem,5vw,3.2rem);
+  font-weight:800;
+  line-height:1.1;
+  margin-bottom:16px;
+}
+.section-sub{
+  font-size:1rem;
+  color:#6868848;
+  color:var(--muted);
+  max-width:500px;
+  line-height:1.8;
+}
+
+/* ── SERVICES ── */
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+  margin-top:56px;
+}
+@media(max-width:700px){.services-grid{grid-template-columns:1fr}}
+.service-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:36px 32px;
+  position:relative;
+  overflow:hidden;
+  transition:all 0.35s cubic-bezier(0.16,1,0.3,1);
+  text-decoration:none;
+  color:inherit;
+  display:block;
+}
+.service-card::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--cyan-dim) 0%,transparent 60%);
+  opacity:0;
+  transition:opacity 0.35s;
+}
+.service-card:hover{
+  border-color:rgba(0,229,255,0.35);
+  transform:translateY(-4px);
+  box-shadow:0 16px 48px rgba(0,229,255,0.08);
+}
+.service-card:hover::before{opacity:1}
+.service-card.featured{
+  grid-column:span 2;
+  display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;
+  background:linear-gradient(135deg,var(--surface2) 0%,#0d0d1e 100%);
+  border-color:rgba(0,229,255,0.2);
+}
+@media(max-width:700px){.service-card.featured{grid-column:span 1;grid-template-columns:1fr}}
+
+.svc-icon{
+  width:54px;height:54px;
+  background:var(--cyan-dim);
+  border:1px solid var(--border);
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;
+  margin-bottom:24px;
+  position:relative;z-index:1;
+  transition:all 0.3s;
+}
+.service-card:hover .svc-icon{
+  background:rgba(0,229,255,0.15);
+  box-shadow:0 0 20px rgba(0,229,255,0.2);
+}
+.svc-label{
+  font-size:0.62rem;
+  letter-spacing:0.25em;
+  text-transform:uppercase;
+  color:var(--cyan);
+  margin-bottom:8px;
+  position:relative;z-index:1;
+}
+.svc-title{
+  font-family:'Syne',sans-serif;
+  font-size:1.35rem;
+  font-weight:700;
+  margin-bottom:12px;
+  position:relative;z-index:1;
+}
+.svc-desc{
+  font-size:0.88rem;
+  color:#6a6a88;
+  line-height:1.75;
+  position:relative;z-index:1;
+}
+.svc-tags{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-top:20px;
+  position:relative;z-index:1;
+}
+.svc-tag{
+  padding:4px 12px;
+  background:rgba(0,229,255,0.06);
+  border:1px solid var(--border);
+  border-radius:100px;
+  font-size:0.7rem;
+  color:var(--muted);
+  letter-spacing:0.08em;
+}
+.svc-arrow{
+  position:absolute;top:28px;right:28px;
+  font-size:1.2rem;
+  color:var(--muted);
+  transition:all 0.3s;
+  z-index:1;
+}
+.service-card:hover .svc-arrow{color:var(--cyan);transform:translate(3px,-3px)}
+
+.featured-visual{
+  position:relative;z-index:1;
+  display:flex;align-items:center;justify-content:center;
+}
+.brain-orb{
+  width:180px;height:180px;
+  background:radial-gradient(circle at 40% 40%,rgba(0,229,255,0.15),rgba(0,229,255,0.02) 70%);
+  border:1px solid rgba(0,229,255,0.2);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:72px;
+  animation:float 5s ease-in-out infinite;
+  box-shadow:0 0 60px rgba(0,229,255,0.08),inset 0 0 40px rgba(0,229,255,0.05);
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+
+/* ── STATS ── */
+.stats-section{
+  background:var(--surface);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  divide-x:1px solid var(--border);
+}
+@media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-item{
+  padding:56px 32px;
+  text-align:center;
+  border-right:1px solid var(--border);
+  position:relative;
+}
+.stat-item:last-child{border-right:none}
+.stat-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:3.5rem;
+  line-height:1;
+  background:linear-gradient(135deg,var(--cyan) 0%,#fff 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  display:block;
+  margin-bottom:8px;
+}
+.stat-label{
+  font-size:0.72rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+/* ── PROCESS ── */
+.process-steps{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2px;
+  margin-top:56px;
+  background:var(--border);
+  border-radius:20px;
+  overflow:hidden;
+}
+@media(max-width:700px){.process-steps{grid-template-columns:1fr}}
+.step{
+  background:var(--surface);
+  padding:40px 32px;
+  position:relative;
+}
+.step-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:4rem;
+  line-height:1;
+  color:rgba(0,229,255,0.1);
+  margin-bottom:16px;
+  display:block;
+}
+.step-title{
+  font-family:'Syne',sans-serif;
+  font-size:1.1rem;
+  font-weight:700;
+  margin-bottom:10px;
+  color:var(--text);
+}
+.step-desc{
+  font-size:0.85rem;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+/* ── TESTIMONIAL ── */
+.testimonial-wrap{
+  max-width:700px;
+  margin:0 auto;
+  text-align:center;
+  padding:80px 24px;
+  position:relative;
+}
+.quote-mark{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:8rem;
+  line-height:0.7;
+  color:var(--cyan-dim);
+  display:block;
+  margin-bottom:16px;
+}
+.quote-text{
+  font-family:'DM Sans',sans-serif;
+  font-style:italic;
+  font-size:1.25rem;
+  line-height:1.7;
+  color:#aaa;
+  margin-bottom:28px;
+}
+.quote-author{
+  font-size:0.75rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--cyan);
+}
+
+/* ── CTA SECTION ── */
+.cta-section{
+  background:var(--surface);
+  border-top:1px solid var(--border);
+}
+.cta-inner{
+  max-width:800px;
+  margin:0 auto;
+  padding:100px 24px;
+  text-align:center;
+}
+.cta-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,8vw,5.5rem);
+  line-height:0.95;
+  letter-spacing:0.04em;
+  margin-bottom:20px;
+}
+.cta-title .accent{
+  display:block;
+  background:linear-gradient(90deg,var(--cyan),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.cta-sub{
+  font-size:1rem;
+  color:var(--muted);
+  max-width:440px;
+  margin:0 auto 40px;
+  line-height:1.75;
+}
+.cta-form{
+  display:flex;gap:10px;max-width:460px;margin:0 auto;
+}
+.cta-input{
+  flex:1;
+  padding:14px 20px;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  font-size:0.9rem;
+  outline:none;
+  transition:border-color 0.2s;
+}
+.cta-input:focus{border-color:var(--cyan)}
+.cta-input::placeholder{color:var(--muted)}
+.cta-input[type="text"],.cta-input[type="email"],textarea.cta-input{width:100%}
+.cta-submit{
+  padding:14px 28px;
+  background:var(--cyan);
+  color:var(--bg);
+  border:none;
+  border-radius:8px;
+  font-family:'Syne',sans-serif;
+  font-weight:700;
+  font-size:0.82rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  cursor:none;
+  transition:all 0.25s;
+}
+.cta-submit:hover{
+  box-shadow:0 0 32px var(--cyan-glow);
+  transform:translateY(-1px);
+}
+@media(max-width:500px){.cta-form{flex-direction:column}}
+
+/* ── FOOTER ── */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  padding:40px 48px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:16px;
+}
+.footer-logo{
+  font-family:'Syne',sans-serif;
+  font-weight:800;
+  letter-spacing:0.18em;
+  color:var(--cyan);
+  font-size:1rem;
+}
+.footer-links{
+  display:flex;gap:24px;list-style:none;
+}
+.footer-links a{
+  font-size:0.75rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--muted);
+  text-decoration:none;
+  transition:color 0.2s;
+}
+.footer-links a:hover{color:var(--cyan)}
+.footer-right{
+  font-size:0.72rem;
+  color:var(--muted);
+  letter-spacing:0.08em;
+}
+
+/* ── SOCIAL ROW ── */
+.socials-row{
+  display:flex;gap:12px;
+  position:relative;z-index:1;
+  justify-content:center;
+  padding:32px 0 0;
+}
+.soc-btn{
+  width:42px;height:42px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:var(--surface);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;
+  text-decoration:none;
+  transition:all 0.25s;
+}
+.soc-btn:hover{
+  border-color:var(--cyan);
+  background:var(--cyan-dim);
+  box-shadow:0 0 16px rgba(0,229,255,0.15);
+  transform:translateY(-3px);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(28px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.reveal{
+  opacity:0;
+  transform:translateY(32px);
+  transition:all 0.75s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible{
+  opacity:1;transform:translateY(0);
+}
+
+/* ── MOBILE NAV ── */
+@media(max-width:768px){
+  nav{padding:16px 20px}
+  .nav-links{display:none}
+  .nav-cta{padding:8px 16px;font-size:0.72rem}
+  footer{padding:28px 20px}
+  .footer-links{display:none}
+  .stat-item{padding:32px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">ZYRAFORGE <span class="tm">™</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Start a Project</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    Now Accepting Projects
+  </div>
+
+  <p class="hero-eyebrow">AI · Automation · Web · Software</p>
+
+  <h1 class="hero-title">
+    <span class="line1">ZYRA</span>
+    <span class="line2">FORGE™</span>
+  </h1>
+
+  <p class="hero-tagline">
+    Forging Ideas Into <span>Digital Empires</span>
+  </p>
+
+  <div class="hero-actions">
+    <a href="#services" class="btn-primary">Explore Services</a>
+    <a href="#contact" class="btn-ghost">Get a Free Consultation →</a>
+  </div>
+
+  <div class="scroll-hint">
+    <span class="scroll-line"></span>
+    Scroll
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="dot"></span> AI Agents</span>
+    <span class="marquee-item"><span class="dot"></span> Web Development</span>
+    <span class="marquee-item"><span class="dot"></span> AI Automation</span>
+    <span class="marquee-item"><span class="dot"></span> Software Building</span>
+    <span class="marquee-item"><span class="dot"></span> Digital Strategy</span>
+    <span class="marquee-item"><span class="dot"></span> Build Smarter</span>
+    <span class="marquee-item"><span class="dot"></span> Entrepreneur</span>
+    <span class="marquee-item"><span class="dot"></span> Innovation</span>
+    <!-- duplicate for seamless loop -->
+    <span class="marquee-item"><span class="dot"></span> AI Agents</span>
+    <span class="marquee-item"><span class="dot"></span> Web Development</span>
+    <span class="marquee-item"><span class="dot"></span> AI Automation</span>
+    <span class="marquee-item"><span class="dot"></span> Software Building</span>
+    <span class="marquee-item"><span class="dot"></span> Digital Strategy</span>
+    <span class="marquee-item"><span class="dot"></span> Build Smarter</span>
+    <span class="marquee-item"><span class="dot"></span> Entrepreneur</span>
+    <span class="marquee-item"><span class="dot"></span> Innovation</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-tag">What We Build</p>
+      <h2 class="section-title">Services That<br>Move Empires</h2>
+      <p class="section-sub">From AI agents to full-stack software — we engineer the digital infrastructure your business needs to dominate.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <!-- Featured: AI Agents -->
+      <div class="service-card featured reveal">
+        <div>
+          <div class="svc-icon">🤖</div>
+          <span class="svc-label">Most Demanded</span>
+          <h3 class="svc-title">AI Agents & Intelligent Systems</h3>
+          <p class="svc-desc">Deploy autonomous AI agents that think, decide, and execute — 24/7. From customer service bots to complex decision-making pipelines, we build AI that works while you sleep.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">GPT-4 / Claude</span>
+            <span class="svc-tag">Langchain</span>
+            <span class="svc-tag">RAG Systems</span>
+            <span class="svc-tag">Multi-Agent</span>
+            <span class="svc-tag">API Integration</span>
+          </div>
+        </div>
+        <div class="featured-visual">
+          <div class="brain-orb">🧠</div>
+        </div>
+      </div>
+
+      <!-- Web Dev -->
+      <div class="service-card reveal">
+        <span class="svc-arrow">↗</span>
+        <div class="svc-icon">🌐</div>
+        <span class="svc-label">Core Service</span>
+        <h3 class="svc-title">Website Development</h3>
+        <p class="svc-desc">Premium, high-converting websites and web apps — fast, beautiful, and built to scale your brand from day one.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">React / Next.js</span>
+          <span class="svc-tag">Landing Pages</span>
+          <span class="svc-tag">SaaS Platforms</span>
+        </div>
+      </div>
+
+      <!-- Automation -->
+      <div class="service-card reveal">
+        <span class="svc-arrow">↗</span>
+        <div class="svc-icon">⚡</div>
+        <span class="svc-label">Core Service</span>
+        <h3 class="svc-title">AI Automation</h3>
+        <p class="svc-desc">Kill repetitive tasks. We automate your workflows, lead generation, data pipelines, and business ops with intelligent AI systems.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">n8n / Make</span>
+          <span class="svc-tag">Zapier</span>
+          <span class="svc-tag">Custom Scripts</span>
+        </div>
+      </div>
+
+      <!-- Software -->
+      <div class="service-card reveal" style="grid-column:span 2">
+        <span class="svc-arrow">↗</span>
+        <div class="svc-icon">🔧</div>
+        <span class="svc-label">Enterprise</span>
+        <h3 class="svc-title">Custom Software Development</h3>
+        <p class="svc-desc">End-to-end software products — from architecture to deployment. SaaS tools, dashboards, mobile apps, and enterprise platforms built for performance.</p>
+        <div class="svc-tags">
+          <span class="svc-tag">Full Stack</span>
+          <span class="svc-tag">Mobile Apps</span>
+          <span class="svc-tag">SaaS Tools</span>
+          <span class="svc-tag">APIs & Backend</span>
+          <span class="svc-tag">Database Design</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-item reveal">
+      <span class="stat-num">50+</span>
+      <span class="stat-label">Projects Delivered</span>
+    </div>
+    <div class="stat-item reveal">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Client Satisfaction</span>
+    </div>
+    <div class="stat-item reveal">
+      <span class="stat-num">24H</span>
+      <span class="stat-label">Response Time</span>
+    </div>
+    <div class="stat-item reveal">
+      <span class="stat-num">∞</span>
+      <span class="stat-label">Ideas Forged</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-tag">How It Works</p>
+      <h2 class="section-title">From Idea to<br>Empire in 3 Steps</h2>
+    </div>
+    <div class="process-steps reveal">
+      <div class="step">
+        <span class="step-num">01</span>
+        <h3 class="step-title">Discovery Call</h3>
+        <p class="step-desc">We sit down (virtually) and map your vision, goals, and technical needs. No fluff — just strategy.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <h3 class="step-title">Build & Iterate</h3>
+        <p class="step-desc">Our team gets to work with complete transparency. You see progress, give feedback, and we refine until it's perfect.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <h3 class="step-title">Deploy & Scale</h3>
+        <p class="step-desc">We launch, monitor, and ensure your product performs at scale — with support beyond delivery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="testimonial-wrap reveal">
+    <span class="quote-mark">"</span>
+    <p class="quote-text">ZYRAFORGE didn't just build our platform — they transformed how our business operates. The AI automation alone saved us 30+ hours a week.</p>
+    <p class="quote-author">— A Happy Client · SaaS Founder</p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+    <div class="reveal">
+      <p class="section-tag">About ZYRAFORGE</p>
+      <h2 class="section-title">Built for Builders Who Think Big</h2>
+      <p class="section-sub" style="margin-bottom:24px">ZYRAFORGE™ is an AI-first digital company that helps entrepreneurs, startups, and brands turn bold ideas into reality.</p>
+      <p class="section-sub" style="margin-bottom:24px">We combine cutting-edge AI, clean engineering, and sharp design to build digital products that outlast trends and outperform expectations.</p>
+      <p style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--cyan)">AI · Innovation · Entrepreneurship</p>
+    </div>
+    <div class="reveal" style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;display:flex;align-items:center;gap:16px">
+        <span style="font-size:28px">🌍</span>
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-weight:700;margin-bottom:4px">Build Smarter</div>
+          <div style="font-size:0.83rem;color:var(--muted)">Every solution is engineered for efficiency and impact</div>
+        </div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;display:flex;align-items:center;gap:16px">
+        <span style="font-size:28px">⚡</span>
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-weight:700;margin-bottom:4px">Move Fast</div>
+          <div style="font-size:0.83rem;color:var(--muted)">Rapid delivery without sacrificing quality or precision</div>
+        </div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;display:flex;align-items:center;gap:16px">
+        <span style="font-size:28px">🔥</span>
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-weight:700;margin-bottom:4px">Forge Empires</div>
+          <div style="font-size:0.83rem;color:var(--muted)">We don't just build products — we build digital empires</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-section">
+  <div class="cta-inner reveal">
+    <h2 class="cta-title">
+      Ready to
+      <span class="accent">Forge Your Empire?</span>
+    </h2>
+    <p class="cta-sub">Drop your details and we'll reach out within 24 hours for a free strategy session.</p>
+
+    <form id="contactForm" style="width:100%;max-width:500px;margin:0 auto;display:flex;flex-direction:column;gap:12px;">
+      <!-- ✅ STEP 1: Replace YOUR_ACCESS_KEY below with your key from web3forms.com (free) -->
+      <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY"/>
+      <input type="hidden" name="subject" value="New Lead from ZYRAFORGE Website"/>
+      <input type="hidden" name="from_name" value="ZYRAFORGE Website"/>
+
+      <input class="cta-input" type="text" name="name" placeholder="Your Name" required/>
+      <input class="cta-input" type="email" name="email" placeholder="your@email.com" required/>
+      <textarea class="cta-input" name="message" rows="3" placeholder="Tell us about your project..." style="resize:vertical;font-family:inherit;font-size:0.9rem"></textarea>
+      <button type="submit" class="cta-submit" id="submitBtn">Let's Build →</button>
+
+      <!-- Success / Error message -->
+      <div id="formMsg" style="display:none;padding:14px 20px;border-radius:8px;font-size:0.85rem;text-align:center;"></div>
+    </form>
+
+    <!-- Social row -->
+    <div class="socials-row" style="margin-top:48px">
+      <a href="https://instagram.com/zyraforge" target="_blank" class="soc-btn" title="Instagram">📸</a>
+      <a href="#" class="soc-btn" title="Twitter/X">𝕏</a>
+      <a href="#" class="soc-btn" title="YouTube">▶</a>
+      <a href="#" class="soc-btn" title="LinkedIn">💼</a>
+      <a href="#" class="soc-btn" title="Telegram">✈</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">ZYRAFORGE™</span>
+  <ul class="footer-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <span class="footer-right">© 2026 ZYRAFORGE™ · Forging Digital Empires</span>
+</footer>
+
+<script>
+// Custom cursor
+const cur = document.getElementById('cur');
+const ring = document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=(mx-5)+'px';
+  cur.style.top=(my-5)+'px';
+});
+function animRing(){
+  rx+=(mx-rx)*0.12;
+  ry+=(my-ry)*0.12;
+  ring.style.left=(rx-18)+'px';
+  ring.style.top=(ry-18)+'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+document.querySelectorAll('a,button,.service-card,.soc-btn').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cur.style.transform='scale(2.5)';
+    ring.style.transform='scale(1.6)';
+    ring.style.borderColor='rgba(0,229,255,0.7)';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cur.style.transform='scale(1)';
+    ring.style.transform='scale(1)';
+    ring.style.borderColor='rgba(0,229,255,0.4)';
+  });
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('visible'),i*60);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// Web3Forms submission
+document.getElementById('contactForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const msg = document.getElementById('formMsg');
+  const form = e.target;
+
+  // Loading state
+  btn.textContent = 'Sending...';
+  btn.style.opacity = '0.7';
+  btn.disabled = true;
+
+  const data = new FormData(form);
+
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: data
+    });
+    const json = await res.json();
+
+    if(json.success){
+      msg.style.display = 'block';
+      msg.style.background = 'rgba(0,229,255,0.08)';
+      msg.style.border = '1px solid rgba(0,229,255,0.3)';
+      msg.style.color = 'var(--cyan)';
+      msg.textContent = '✓ Message received! We\'ll reach out within 24 hours.';
+      form.reset();
+      btn.textContent = '✓ Sent!';
+    } else {
+      throw new Error('Failed');
+    }
+  } catch(err){
+    msg.style.display = 'block';
+    msg.style.background = 'rgba(255,60,80,0.08)';
+    msg.style.border = '1px solid rgba(255,60,80,0.3)';
+    msg.style.color = '#ff4466';
+    msg.textContent = '✗ Something went wrong. Please email us directly.';
+    btn.textContent = 'Let\'s Build →';
+    btn.style.opacity = '1';
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
